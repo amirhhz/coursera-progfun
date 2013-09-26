@@ -22,7 +22,16 @@ object Main {
   /**
    * Exercise 2
    */
-  def balance(chars: List[Char]): Boolean = ???
+  def balance(chars: List[Char]): Boolean = {
+
+    def balanceInner(chars: List[Char], openStack: String): Boolean =
+      if (chars.isEmpty) (openStack == "")
+      else if (chars.head == '(') balanceInner(chars.tail, chars.head + openStack)
+      else if (chars.head == ')') (openStack != "" && balanceInner(chars.tail, openStack.tail))
+      else balanceInner(chars.tail, openStack)
+
+    balanceInner(chars, "")
+  }
 
   /**
    * Exercise 3

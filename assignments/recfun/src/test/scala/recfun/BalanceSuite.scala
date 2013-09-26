@@ -9,12 +9,20 @@ import org.scalatest.junit.JUnitRunner
 class BalanceSuite extends FunSuite {
   import Main.balance
 
+  test("balance: 'no brackets' is balanced") {
+    assert(balance("no brackets".toList))
+  }
+
   test("balance: '(if (zero? x) max (/ 1 x))' is balanced") {
     assert(balance("(if (zero? x) max (/ 1 x))".toList))
   }
 
   test("balance: 'I told him ...' is balanced") {
     assert(balance("I told him (that it's not (yet) done).\n(But he wasn't listening)".toList))
+  }
+
+  test("balance: '(erm ...' is unbalanced") {
+    assert(!balance("(erm ...".toList))
   }
 
   test("balance: ':-)' is unbalanced") {
