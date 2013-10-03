@@ -26,7 +26,8 @@ object FunSets {
    * Returns the union of the two given sets,
    * the sets of all elements that are in either `s` or `t`.
    */
-  def union(s: Set, t: Set): Set = ???
+  def union(s: Set, t: Set): Set =
+    (x: Int) => if (contains(s, x) || contains(t, x)) true else false
 
   /**
    * Returns the intersection of the two given sets,
