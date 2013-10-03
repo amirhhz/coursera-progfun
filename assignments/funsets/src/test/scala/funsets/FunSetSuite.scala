@@ -79,25 +79,15 @@ class FunSetSuite extends FunSuite {
     val s3 = singletonSet(3)
   }
 
-  /**
-   * This test is currently disabled (by using "ignore") because the method
-   * "singletonSet" is not yet implemented and the test would fail.
-   * 
-   * Once you finish your implementation of "singletonSet", exchange the
-   * function "ignore" by "test".
-   */
-  ignore("singletonSet(1) contains 1") {
-    
-    /**
-     * We create a new instance of the "TestSets" trait, this gives us access
-     * to the values "s1" to "s3". 
-     */
+  test("singletonSet(1) contains 1") {
     new TestSets {
-      /**
-       * The string argument of "assert" is a message that is printed in case
-       * the test fails. This helps identifying which assertion failed.
-       */
-      assert(contains(s1, 1), "Singleton")
+      assert(contains(s1, 1), "Singleton contains its element")
+    }
+  }
+
+  test("singletonSet(2) does not contain 1") {
+    new TestSets {
+      assert(!contains(s2, 1), "Singleton does not contain element")
     }
   }
 
