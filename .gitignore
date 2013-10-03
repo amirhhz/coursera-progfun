@@ -2,4 +2,6 @@
 .cache
 target/
 *.class
+bin/
 .worksheet
+hello-project/
