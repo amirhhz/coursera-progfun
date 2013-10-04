@@ -121,4 +121,13 @@ class FunSetSuite extends FunSuite {
       assert(!contains(d, 3), "Diff 3")
     }
   }
+  test("Filter returns set containg only members matching predicate") {
+    new TestSets {
+      val s123 = union(union(s1, s2), s3)
+      val odd = filter(s123, x => if (x % 2 == 1) true else false)
+      assert(contains(odd, 1), "Filter for odd 1")
+      assert(!contains(odd, 2), "Filter for odd 2")
+      assert(contains(odd, 3), "Filter for odd 3")
+    }
+  }
 }
