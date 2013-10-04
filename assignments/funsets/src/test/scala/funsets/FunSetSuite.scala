@@ -130,4 +130,19 @@ class FunSetSuite extends FunSuite {
       assert(contains(odd, 3), "Filter for odd 3")
     }
   }
+
+  test("Forall with test for positive integers") {
+    new TestSets {
+      val s123 = union(union(s1, s2), s3)
+      assert(forall(s123, x => if (x > 0) true else false), "Forall positive ints")
+    }
+  }
+
+  test("Forall with test for greater than 1 integers") {
+    new TestSets {
+      val s123 = union(union(s1, s2), s3)
+      assert(!forall(s123, x => if (x > 1) true else false), "Forall >1 ints")
+    }
+  }
+
 }
