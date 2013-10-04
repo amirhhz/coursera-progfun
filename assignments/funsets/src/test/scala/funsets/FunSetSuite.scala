@@ -159,4 +159,17 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("Map with multiplier") {
+    new TestSets {
+      val s12 = union(s1, s2)
+      val s24 = map(s12, x => x * 2)
+      assert(!contains(s24, 1))
+      assert(contains(s24, 2))
+      assert(!contains(s24, 3))
+      assert(contains(s24, 4))
+      assert(!contains(s24, 5))
+      assert(!contains(s24, 6))
+    }
+  }
+
 }
