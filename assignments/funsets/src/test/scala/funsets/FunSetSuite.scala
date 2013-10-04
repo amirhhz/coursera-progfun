@@ -121,6 +121,7 @@ class FunSetSuite extends FunSuite {
       assert(!contains(d, 3), "Diff 3")
     }
   }
+
   test("Filter returns set containg only members matching predicate") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
@@ -128,9 +129,11 @@ class FunSetSuite extends FunSuite {
       assert(contains(odd, 1), "Filter for odd 1")
       assert(!contains(odd, 2), "Filter for odd 2")
       assert(contains(odd, 3), "Filter for odd 3")
+      assert(!contains(odd, 4), "Filter for odd 4")
+      assert(!contains(odd, 5), "Filter for odd 5")
     }
   }
-
+  
   test("Forall with test for positive integers") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
