@@ -145,4 +145,18 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("Exist with test of any even numbers") {
+    new TestSets {
+      val s123 = union(union(s1, s2), s3)
+      assert(exists(s123, x => if (x % 2 == 0) true else false), "Exists with evens")
+    }
+  }
+
+  test("Exist with test of any numbers > 10") {
+    new TestSets {
+      val s123 = union(union(s1, s2), s3)
+      assert(!exists(s123, x => if (x > 10) true else false), "Exists with numbers >10")
+    }
+  }
+
 }
