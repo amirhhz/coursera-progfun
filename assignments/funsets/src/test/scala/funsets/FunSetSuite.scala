@@ -124,7 +124,7 @@ class FunSetSuite extends FunSuite {
   test("Filter returns set containg only members matching predicate") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
-      val odd = filter(s123, x => if (x % 2 == 1) true else false)
+      val odd = filter(s123, x => x % 2 == 1)
       assert(contains(odd, 1), "Filter for odd 1")
       assert(!contains(odd, 2), "Filter for odd 2")
       assert(contains(odd, 3), "Filter for odd 3")
@@ -134,28 +134,28 @@ class FunSetSuite extends FunSuite {
   test("Forall with test for positive integers") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
-      assert(forall(s123, x => if (x > 0) true else false), "Forall positive ints")
+      assert(forall(s123, x => x > 0), "Forall positive ints")
     }
   }
 
   test("Forall with test for greater than 1 integers") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
-      assert(!forall(s123, x => if (x > 1) true else false), "Forall >1 ints")
+      assert(!forall(s123, x => x > 1), "Forall >1 ints")
     }
   }
 
   test("Exist with test of any even numbers") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
-      assert(exists(s123, x => if (x % 2 == 0) true else false), "Exists with evens")
+      assert(exists(s123, x => x % 2 == 0), "Exists with evens")
     }
   }
 
   test("Exist with test of any numbers > 10") {
     new TestSets {
       val s123 = union(union(s1, s2), s3)
-      assert(!exists(s123, x => if (x > 10) true else false), "Exists with numbers >10")
+      assert(!exists(s123, x => x > 10), "Exists with numbers >10")
     }
   }
 
