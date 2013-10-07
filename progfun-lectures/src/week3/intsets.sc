@@ -1,10 +1,9 @@
 package week3
 
 object intsets {
-	val s1 = new NonEmpty(3, new Empty, new Empty)
-                                                  //> s1  : week3.NonEmpty = {.3.}
+	val s1 = new NonEmpty(3, Empty, Empty)    //> s1  : week3.NonEmpty = {.3.}
 	val s2 = s1 incl 4                        //> s2  : week3.IntSet = {.3{.4.}}
-  val s3 = new NonEmpty(12, new Empty, new Empty) //> s3  : week3.NonEmpty = {.12.}
+  val s3 = new NonEmpty(12, Empty, Empty)         //> s3  : week3.NonEmpty = {.12.}
 	
 	s2 union s3                               //> res0: week3.IntSet = {{{.3.}4.}12.}
 	
@@ -16,9 +15,9 @@ abstract class IntSet {
 	def union(other: IntSet): IntSet
 }
 
-class Empty extends IntSet {
+object Empty extends IntSet {
 	def contains(x: Int): Boolean = false
-	def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
+	def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
 	def union(other: IntSet): IntSet =
 	  other
 
