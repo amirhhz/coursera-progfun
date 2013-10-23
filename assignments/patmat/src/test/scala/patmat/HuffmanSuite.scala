@@ -25,6 +25,24 @@ class HuffmanSuite extends FunSuite {
       assert(chars(t2) === List('a','b','d'))
     }
   }
+  
+  test("times - frequency of chars on empty string") {
+    assert(times(string2Chars("")) === List())
+  }  
+
+  test("times - frequency of chars on single-char string") {
+    assert(times(string2Chars("a")) === List(('a', 1)))
+  }  
+
+  test("times - frequency of chars on one repeated char") {
+    assert(times(string2Chars("aa")) === List(('a', 2)))
+  }  
+
+  test("times - frequency of chars") {
+    assert(times(string2Chars("ab")) === List(('b', 1), ('a', 1)))
+    assert(times(string2Chars("abb")) === List(('b', 2), ('a', 1)))
+    assert(times(string2Chars("caabbbc")) === List(('c', 2), ('b', 3), ('a', 2)))
+  }
 
   test("string2chars(\"hello, world\")") {
     assert(string2Chars("hello, world") === List('h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'))
