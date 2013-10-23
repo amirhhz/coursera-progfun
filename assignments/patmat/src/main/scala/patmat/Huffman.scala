@@ -98,14 +98,14 @@ object Huffman {
    */
   def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = freqs match {
     case List() => List()
-    case f :: fs => insertLeaf(Leaf(f._1, f._2), makeOrderedLeafList(fs))
+    case f :: fs => insertCodeTree(Leaf(f._1, f._2), makeOrderedLeafList(fs))
   }
   
-  def insertLeaf(leaf: Leaf, leafList: List[Leaf]): List[Leaf] = leafList match {
-    case List() => List(leaf)
-    case l :: ls =>
-      if (leaf.weight <= l.weight) leaf :: leafList 
-      else l :: insertLeaf(leaf, ls)
+  def insertCodeTree[T <: CodeTree](tree: T, treeList: List[T]): List[T] = treeList match {
+    case List() => List(tree)
+    case t :: ts =>
+      if (weight(tree) <= weight(t)) tree :: treeList
+      else t :: insertCodeTree(tree, ts)
   }
 
   /**
@@ -128,7 +128,11 @@ object Huffman {
    * If `trees` is a list of less than two elements, that list should be returned
    * unchanged.
    */
-  def combine(trees: List[CodeTree]): List[CodeTree] = ???
+  def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
+    case Nil => trees
+    case x :: Nil => trees
+    case x :: y :: rest => insertCodeTree(Fork(x, y, chars(x) ::: chars(y), weight(x) + weight(y)), rest)
+  }
 
   /**
    * This function will be called in the following way:
