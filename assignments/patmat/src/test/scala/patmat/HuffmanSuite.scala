@@ -82,6 +82,27 @@ class HuffmanSuite extends FunSuite {
     assert(createCodeTree(chars) === Fork(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4), List('e', 't', 'x'), 7))
   }
 
+  // Don't think leaf-only trees work ...
+  ignore("decode single char code from leaf tree") {
+    new TestTrees {
+      assert(decode(Leaf('a', 1), List(0)) === "a".toList)
+    }
+  }
+
+  // Don't think leaf-only trees work ...
+  ignore("decode double char code from leaf tree") {
+    new TestTrees {
+      assert(decode(Leaf('b', 1), List(1, 0)) === "bb".toList)
+    }
+  }
+
+  test("decode short texts") {
+    new TestTrees {
+      assert(decode(t1, List(0, 1, 1)) === "abb".toList)
+      assert(decode(t2, List(1, 0, 1, 0, 0, 1)) === "dbad".toList)
+    }
+  }
+
   test("decode and encode a very short text should be identity") {
     new TestTrees {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
