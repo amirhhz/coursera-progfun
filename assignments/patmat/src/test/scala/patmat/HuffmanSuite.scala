@@ -114,6 +114,13 @@ class HuffmanSuite extends FunSuite {
       assert(decode(t1, quickEncode(t1)("ab".toList)) === "ab".toList)
     }
   }
+
+  test("decode and quickEncode identity with secret") {
+    new TestTrees {
+      assert(quickEncode(frenchCode)(decodedSecret) === secret)
+    }
+  }
+
   test("codeBits") {
 	val table = List(('a', List(1)),('b', List(1, 0)), ('c', List(0, 1)))
     assert(codeBits(table)('b') === List(1, 0))
@@ -122,11 +129,13 @@ class HuffmanSuite extends FunSuite {
 
   test("convert tree to table") {
     new TestTrees {
-	  val table = List(('a', List(0)),('b', List(1)))
-      assert(convert(t1) === table)
+	  val table1 = List(('a', List(0)), ('b', List(1)))
+	  val table2 = List(('a', List(0, 0)), ('b', List(0, 1)), ('d', List(1)))
+      assert(convert(t1) === table1)
+      assert(convert(t2) === table2)
     }
   }
-
+  
   test("mergeCodeTables with two tables") {
     new TestTrees {
       val tb1 = List(('a', List(0)), ('b', List(1)))

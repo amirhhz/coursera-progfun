@@ -273,8 +273,9 @@ object Huffman {
    */
   def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = (a, b) match {
     case ((c1, b1) :: as , (c2, b2) :: bs) => (c1, 0 :: b1) :: (c2, 1 :: b2) :: mergeCodeTables(as, bs)
-    case (t, Nil) => t
-    case (Nil, t) => t
+    case ((c1, b1) :: as, Nil) => (c1, 0 :: b1) :: mergeCodeTables(as, Nil)
+    case (Nil, (c2, b2) :: bs) => (c2, 1 :: b2) :: mergeCodeTables(Nil, bs)
+    case _ => Nil
   }
 
   /**
