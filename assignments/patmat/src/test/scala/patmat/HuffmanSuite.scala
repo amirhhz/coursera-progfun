@@ -109,6 +109,11 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
+  test("decode and quickEncode a very short text should be identity") {
+    new TestTrees {
+      assert(decode(t1, quickEncode(t1)("ab".toList)) === "ab".toList)
+    }
+  }
   test("codeBits") {
 	val table = List(('a', List(1)),('b', List(1, 0)), ('c', List(0, 1)))
     assert(codeBits(table)('b') === List(1, 0))
