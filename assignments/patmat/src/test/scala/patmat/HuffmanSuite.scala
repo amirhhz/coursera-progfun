@@ -115,4 +115,20 @@ class HuffmanSuite extends FunSuite {
     assert(codeBits(table)('d') === List())
   }
 
+  test("convert tree to table") {
+    new TestTrees {
+	  val table = List(('a', List(0)),('b', List(1)))
+      assert(convert(t1) === table)
+    }
+  }
+
+  test("mergeCodeTables with two tables") {
+    new TestTrees {
+      val tb1 = List(('a', List(0)), ('b', List(1)))
+      val tb2 = List(('c', List(0)), ('d', List(1)))
+      val expectedMerge = List(('a', List(0, 0)), ('c', List(1, 0)), ('b', List(0, 1)), ('d', List(1, 1)))
+      assert(mergeCodeTables(tb1, tb2) === expectedMerge)
+    }
+  }
+
 }
