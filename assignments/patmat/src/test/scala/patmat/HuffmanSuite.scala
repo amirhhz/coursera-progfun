@@ -108,4 +108,11 @@ class HuffmanSuite extends FunSuite {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
     }
   }
+
+  test("codeBits") {
+	val table = List(('a', List(1)),('b', List(1, 0)), ('c', List(0, 1)))
+    assert(codeBits(table)('b') === List(1, 0))
+    assert(codeBits(table)('d') === List())
+  }
+
 }
