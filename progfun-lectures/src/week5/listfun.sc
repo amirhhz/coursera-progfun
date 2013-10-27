@@ -43,4 +43,21 @@ object listfun {
 	def encode[T](xs: List[T]): List[(T, Int)] = pack(xs) map (ys => (ys.head, ys.length))
                                                   //> encode: [T](xs: List[T])List[(T, Int)]
 	encode(data)                              //> res9: List[(String, Int)] = List((a,4), (b,1), (c,2), (a,1))
+
+
+	def concat[T](xs: List[T], ys: List[T]): List[T] =
+		(xs foldRight ys)(_ :: _)         //> concat: [T](xs: List[T], ys: List[T])List[T]
+
+
+	def mapFun[T, U](xs: List[T], f: T => U): List[U] =
+		(xs foldRight List[U]())(f(_) :: _)
+                                                  //> mapFun: [T, U](xs: List[T], f: T => U)List[U]
+
+	mapFun[Int, Int](nums, (x => x * x))      //> res10: List[Int] = List(4, 121, 16, 0, 1, 16, 100, 9)
+
+
+	def lengthFun[T](xs: List[T]): Int =
+		(xs foldRight 0)((_, acc) => acc + 1)
+                                                  //> lengthFun: [T](xs: List[T])Int
+	lengthFun(nums)                           //> res11: Int = 8
 }
