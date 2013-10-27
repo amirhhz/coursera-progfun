@@ -45,11 +45,9 @@ object listops {
 	def flatten(xs: List[Any]): List[Any] = xs match {
 		case List() => xs
 		case Nil :: xs => flatten(xs)
-		case (Nil :: ys) :: zs => flatten(ys) ::: flatten(zs)
-		case (y :: ys) :: zs => y :: flatten(ys) ::: flatten(zs)
+		case (y :: ys) :: zs => flatten(y :: ys) ::: flatten(zs)
 		case y :: ys => y :: flatten(ys)
 	}                                         //> flatten: (xs: List[Any])List[Any]
-
 
 	flatten(List(List(1, 1), 2, List(3, List(5, 8))))
                                                   //> res5: List[Any] = List(1, 1, 2, 3, 5, 8)
