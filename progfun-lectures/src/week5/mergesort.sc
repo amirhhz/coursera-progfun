@@ -23,4 +23,9 @@ object mergesort {
 	msort(List(3))(intLt)                     //> res1: List[Int] = List(3)
 	msort(List(4, 10, 2, 40, 0, -1, 3))(intLt)//> res2: List[Int] = List(-1, 0, 2, 3, 4, 10, 40)
 
+	val fruits = List("apple", "pineapple", "orange", "banana")
+                                                  //> fruits  : List[String] = List(apple, pineapple, orange, banana)
+  // Note the lack of types on x and y, which are inferred:
+	msort(fruits)((x, y) => x.compareTo(y) < 0)
+                                                  //> res3: List[String] = List(apple, banana, orange, pineapple)
 }
