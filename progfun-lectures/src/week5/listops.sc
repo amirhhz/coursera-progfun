@@ -55,4 +55,22 @@ object listops {
                                                   //> res6: List[Any] = List(1, 2, 3, 4, 5, 6)
 	flatten(List(Nil, List(1, 2, 3), Nil, List(4, 5, 6)))
                                                   //> res7: List[Any] = List(1, 2, 3, 4, 5, 6)
+
+	// Doesn't use ':::' ...
+  def flatten2(xs: List[Any]): List[Any] = {
+    def helper(ys: Any, acc: List[Any]): List[Any] = ys match {
+      case Nil => acc
+      case y :: yz => helper(y, helper(yz, acc))
+      case _ => ys :: acc
+    }
+    helper(xs, List())
+  }                                               //> flatten2: (xs: List[Any])List[Any]
+
+	flatten2(List(List(1, 1), 2, List(3, List(5, 8))))
+                                                  //> res8: List[Any] = List(1, 1, 2, 3, 5, 8)
+	flatten2(List(List(Nil, List(1, 2, 3)), 4, 5, 6))
+                                                  //> res9: List[Any] = List(1, 2, 3, 4, 5, 6)
+	flatten2(List(Nil, List(1, 2, 3), Nil, List(4, 5, 6)))
+                                                  //> res10: List[Any] = List(1, 2, 3, 4, 5, 6)
+
 }
