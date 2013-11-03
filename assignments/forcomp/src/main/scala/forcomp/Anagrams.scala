@@ -57,11 +57,11 @@ object Anagrams {
    *
    */
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] =
-    dictionary.groupBy(word => wordOccurrences(word))
+    dictionary.groupBy(word => wordOccurrences(word)).withDefaultValue(List())
 
   /** Returns all the anagrams of a given word. */
   def wordAnagrams(word: Word): List[Word] =
-    dictionaryByOccurrences.withDefaultValue(List())(wordOccurrences(word))
+    dictionaryByOccurrences(wordOccurrences(word))
 
   /** Returns the list of all subsets of the occurrence list.
    *  This includes the occurrence itself, i.e. `List(('k', 1), ('o', 1))`
@@ -148,6 +148,17 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
 
+    def sentenceOccurrAnagrams(occurrences: Occurrences): List[Sentence] = occurrences match {
+      	case Nil => List(Nil)
+      	case _   => for { 
+		    comb <- combinations(occurrences)
+		    word <- dictionaryByOccurrences(comb)
+		    restSentence <- sentenceOccurrAnagrams(subtract(occurrences, comb))
+		} yield word :: restSentence
+    }
+
+    sentenceOccurrAnagrams(sentenceOccurrences(sentence))
+  }
 }
