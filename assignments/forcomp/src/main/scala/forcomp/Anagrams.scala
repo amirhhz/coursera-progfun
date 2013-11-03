@@ -86,13 +86,21 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] =
-    // note: could this be neater with a fold operation...?
-    List() :: (for {
-  	  (char, occs) <- occurrences
-      count <- 1 to occs
-      rest <- combinations(occurrences filter (char < _._1))
-  	} yield List((char, count)) ++ rest)
-
+    // foldRight will maintain the ordering of elements in occurrences whilst 
+    // only requiring a cons/prepend operation in the for-expression below. A foldLeft
+    // would mean we'd have to append each new (ch, count) to the end of a comb, instead.
+    // Start folding right with List containing empty list as the accumulator/zero...
+    (occurrences foldRight List[Occurrences](Nil)) {
+      // Using patter matching to get at the char and occurence values more neatly
+      case ((ch, occs), accCombs) => 
+        (for {
+          comb <- accCombs
+          count <- 1 to occs
+          // Create more combinations from existing combinations, by adding the range
+          // of possible occurrence values for the current char
+        } yield (ch, count) :: comb) ++ accCombs
+    }
+    
   /** Subtracts occurrence list `y` from occurrence list `x`.
    * 
    *  The precondition is that the occurrence list `y` is a subset of
