@@ -33,8 +33,10 @@ class Pouring(capacity: Vector[Int]) {
     
   // Paths
   class Path(history: List[Move]) {
+    // the head of the list is the last move
     
     def endState: State = (history foldRight initialState) (_ change _) 
-  
+    def extend(move: Move) = new Path(move :: history)
+    override def toString = (history.reverse mkString " ") + "-->" + endState
   }
 }
