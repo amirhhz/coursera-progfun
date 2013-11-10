@@ -34,12 +34,7 @@ class Pouring(capacity: Vector[Int]) {
   // Paths
   class Path(history: List[Move]) {
     
-    def endState: State = trackState(history)
-    
-    private def trackState(xs: List[Move]): State = xs match {
-      case Nil => initialState
-      case move :: xs1 => move change trackState(xs1)
-    }
-      
+    def endState: State = (history foldRight initialState) (_ change _) 
+  
   }
 }
