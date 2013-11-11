@@ -32,15 +32,14 @@ class Pouring(capacity: Vector[Int]) {
 
     
   // Paths
-  class Path(history: List[Move]) {
+  class Path(history: List[Move], val endState: State) {
     // the head of the list is the last move
     
-    def endState: State = (history foldRight initialState) (_ change _) 
-    def extend(move: Move) = new Path(move :: history)
+    def extend(move: Move) = new Path(move :: history, move change endState)
     override def toString = (history.reverse mkString " ") + "-->" + endState
   }
   
-  val initialPath = new Path(Nil)
+  val initialPath = new Path(Nil, initialState)
   
   def from(paths: Set[Path], explored: Set[State]): Stream[Set[Path]] = 
     if (paths.isEmpty) Stream.empty
