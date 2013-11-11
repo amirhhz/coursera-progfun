@@ -54,4 +54,10 @@ class Pouring(capacity: Vector[Int]) {
   
   val pathSets = from(Set(initialPath))
 
+  def solution(target: Int): Stream[Path] =
+    for {
+      pathSet <- pathSets
+      path <- pathSet
+      if path.endState contains target
+    } yield path
 }
